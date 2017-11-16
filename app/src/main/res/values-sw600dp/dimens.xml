@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="margin_small">6dp</dimen>
+    <dimen name="margin_typical">12dp</dimen>
+    <dimen name="margin_large">24dp</dimen>
+    <dimen name="margin_xlarge">36dp</dimen>
+
+    <dimen name="text_size_empty">24sp</dimen>
+    <dimen name="text_size_story_title">24sp</dimen>
+    <dimen name="text_size_story_author">21sp</dimen>
+
+    <dimen name="size_story_list_cover">90dp</dimen>
+</resources>

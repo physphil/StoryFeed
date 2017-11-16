@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/main_story_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <!-- In future, abstract the progress and error views out into custom views for reuseability -->
+    <LinearLayout
+        android:id="@+id/main_progress_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginEnd="@dimen/margin_typical"
+        android:layout_marginStart="@dimen/margin_typical"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <ProgressBar
+            android:id="@+id/main_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_small"/>
+
+        <TextView
+            android:id="@+id/main_progress_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_small"
+            android:text="@string/progress_loading_stories"
+            android:textSize="@dimen/text_size_empty"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/main_error_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginEnd="@dimen/margin_large"
+        android:layout_marginStart="@dimen/margin_large"
+        android:drawablePadding="@dimen/margin_large"
+        android:drawableTop="@drawable/ic_sad_puppy"
+        android:gravity="center_horizontal"
+        android:text="@string/error_loading_stories"
+        android:textSize="@dimen/text_size_empty"
+        android:visibility="gone"
+        tools:visibility="visible"/>
+
+</FrameLayout>

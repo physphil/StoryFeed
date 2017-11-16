@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Wattpad</string>
+    <string name="progress_loading_stories">Getting your stories…</string>
+    <string name="empty_stories_list">Well, this is embarrassing. We have no stories to show you.</string>
+    <string name="error_loading_stories">Oops! There was a problem loading your list of stories. Please try again later.</string>
+    <string name="cd_story_list_cover_image">Story list cover image</string>
+    <string name="menu_search">Search</string>
+</resources>
