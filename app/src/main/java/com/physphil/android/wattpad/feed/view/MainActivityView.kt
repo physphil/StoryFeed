@@ -13,4 +13,5 @@ interface MainActivityView {
     fun addStories(stories: List<Story>)
     fun filterStories(stories: List<Story>)
     fun setErrorMessage(@StringRes message: Int)
+    fun restoreQuery(query: String)
 }

@@ -13,6 +13,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
 private const val KEY_STORIES = "com.physphil.android.wattpad.KEY_STORIES"
+private const val KEY_QUERY = "com.physphil.android.wattpad.KEY_QUERY"
 
 /**
  * Presenter class
@@ -23,13 +24,21 @@ class MainActivityPresenter(private val view: MainActivityView, private val api:
     private val subscriptions = CompositeDisposable()
     /** List of stories retrieved from API */
     private val stories = arrayListOf<Story>()
+    private var currentQuery = ""
 
     fun onCreate(savedState: Bundle?) {
-        if (savedState != null && savedState.containsKey(KEY_STORIES)) {
-            // Display the list of stories if we already have it
-            stories.addAll(savedState.getParcelableArrayList(KEY_STORIES))
-            showListView()
-            view.addStories(stories)
+        if (savedState != null) {
+            if (savedState.containsKey(KEY_QUERY)) {
+                currentQuery = savedState.getString(KEY_QUERY)
+            }
+
+            if (savedState.containsKey(KEY_STORIES)) {
+                // Display the list of stories if we already have it
+                stories.addAll(savedState.getParcelableArrayList(KEY_STORIES))
+                showListView()
+                view.addStories(stories)
+                restoreQuery()
+            }
         }
         else {
             // Get story list from API
@@ -44,6 +53,7 @@ class MainActivityPresenter(private val view: MainActivityView, private val api:
 
     fun saveDataOnConfigChange(outState: Bundle?) {
         outState?.putParcelableArrayList(KEY_STORIES, stories)
+        outState?.putString(KEY_QUERY, currentQuery)
     }
 
     /**
@@ -60,6 +70,7 @@ class MainActivityPresenter(private val view: MainActivityView, private val api:
                     if (stories.isNotEmpty()) {
                         showListView()
                         view.addStories(stories)
+                        restoreQuery()
                     }
                     else {
                         showErrorView(R.string.empty_stories_list)
@@ -89,6 +100,10 @@ class MainActivityPresenter(private val view: MainActivityView, private val api:
         view.setListVisibility(false)
     }
 
+    private fun restoreQuery() {
+        if (currentQuery.isNotEmpty()) view.restoreQuery(currentQuery)
+    }
+
     /**
      * Display list of stories whose title contain the supplied query String.
      * @param query String used to filer list based on title
@@ -112,6 +127,7 @@ class MainActivityPresenter(private val view: MainActivityView, private val api:
 
     override fun onQueryTextChange(newText: String): Boolean {
         // Show list of filtered stories, absorb handling of action
+        currentQuery = newText
         filterStoryList(newText)
         return true
     }

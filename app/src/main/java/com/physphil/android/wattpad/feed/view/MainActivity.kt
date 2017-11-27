@@ -28,6 +28,8 @@ class MainActivity : AppCompatActivity(), MainActivityView {
     @BindView(R.id.main_error_text)
     lateinit var errorView: TextView
 
+    lateinit var searchView: SearchView
+
     // TODO - inject these dependencies with Dagger, instead of through constructor
     /** Presenter for this class. App uses Model-View-Presenter (MVP) architecture */
     private val presenter = MainActivityPresenter(this, WattpadApi.service)
@@ -39,6 +41,8 @@ class MainActivity : AppCompatActivity(), MainActivityView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         ButterKnife.bind(this)
+
+        resources.configuration.orientation
 
         // Setup recycler view
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -63,7 +67,7 @@ class MainActivity : AppCompatActivity(), MainActivityView {
         menuInflater.inflate(R.menu.menu_main, menu)
 
         // Presenter will handle user searches
-        val searchView = menu.findItem(R.id.menu_search).actionView as SearchView
+        searchView = menu.findItem(R.id.menu_search).actionView as SearchView
         searchView.setOnQueryTextListener(presenter)
 
         return true
@@ -92,6 +96,10 @@ class MainActivity : AppCompatActivity(), MainActivityView {
 
     override fun setErrorMessage(message: Int) {
         errorView.setText(message)
+    }
+
+    override fun restoreQuery(query: String) {
+        searchView.setQuery(query, true)
     }
     // endregion
 }
